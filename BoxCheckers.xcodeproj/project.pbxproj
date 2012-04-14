@@ -26,6 +26,7 @@
 		2218156515392388001A9EAF /* BCBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218156415392388001A9EAF /* BCBox.m */; };
 		2218156A15394919001A9EAF /* BCCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218156915394919001A9EAF /* BCCamera.m */; };
 		2218156E1539557D001A9EAF /* BCCheckerBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218156D1539557D001A9EAF /* BCCheckerBoard.m */; };
+		223E166F153A0380004A564C /* BCGameViewController+CameraDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 223E166E153A0380004A564C /* BCGameViewController+CameraDebug.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,8 @@
 		2218156915394919001A9EAF /* BCCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCCamera.m; sourceTree = "<group>"; };
 		2218156C1539557D001A9EAF /* BCCheckerBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCCheckerBoard.h; sourceTree = "<group>"; };
 		2218156D1539557D001A9EAF /* BCCheckerBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCCheckerBoard.m; sourceTree = "<group>"; };
+		223E166D153A0380004A564C /* BCGameViewController+CameraDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BCGameViewController+CameraDebug.h"; sourceTree = "<group>"; };
+		223E166E153A0380004A564C /* BCGameViewController+CameraDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BCGameViewController+CameraDebug.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +170,7 @@
 		2218154515391D1E001A9EAF /* BCGameViewController */ = {
 			isa = PBXGroup;
 			children = (
+				223E166B153A0365004A564C /* Categories */,
 				2218155015391EB5001A9EAF /* BCGameView */,
 				2218154615391D40001A9EAF /* BCGameViewController.h */,
 				2218154715391D40001A9EAF /* BCGameViewController.m */,
@@ -217,6 +221,15 @@
 				2218156D1539557D001A9EAF /* BCCheckerBoard.m */,
 			);
 			name = BCCheckerBoard;
+			sourceTree = "<group>";
+		};
+		223E166B153A0365004A564C /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				223E166D153A0380004A564C /* BCGameViewController+CameraDebug.h */,
+				223E166E153A0380004A564C /* BCGameViewController+CameraDebug.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,6 +308,7 @@
 				2218156515392388001A9EAF /* BCBox.m in Sources */,
 				2218156A15394919001A9EAF /* BCCamera.m in Sources */,
 				2218156E1539557D001A9EAF /* BCCheckerBoard.m in Sources */,
+				223E166F153A0380004A564C /* BCGameViewController+CameraDebug.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +412,7 @@
 				2218153A15391CD5001A9EAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

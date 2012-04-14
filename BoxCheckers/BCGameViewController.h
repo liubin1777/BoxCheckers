@@ -9,11 +9,21 @@
 #import <UIKit/UIKit.h>
 
 @class BCCamera;
+@class BCGameView;
 
 @interface BCGameViewController : UIViewController {
  
     NSMutableArray *_drawables;
     BCCamera *_camera;
+    
+    BCGameView *_gameView;
+    
+    GLuint _colorRenderBuffer;
+    GLuint _positionSlot;
+    GLuint _colorSlot;
+    GLuint _projectionUniform;
+    GLuint _modelViewUniform;
+    GLuint _depthRenderBuffer;
     
 }
 
