@@ -13,6 +13,17 @@
 		2218152F15391CD5001A9EAF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2218152D15391CD5001A9EAF /* InfoPlist.strings */; };
 		2218153115391CD5001A9EAF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218153015391CD5001A9EAF /* main.m */; };
 		2218153515391CD5001A9EAF /* BCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218153415391CD5001A9EAF /* BCAppDelegate.m */; };
+		2218153C15391CE0001A9EAF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2218153B15391CE0001A9EAF /* QuartzCore.framework */; };
+		2218153E15391CE5001A9EAF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2218153D15391CE5001A9EAF /* OpenGLES.framework */; };
+		2218154915391D40001A9EAF /* BCGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218154715391D40001A9EAF /* BCGameViewController.m */; };
+		2218154E15391E3D001A9EAF /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 2218154C15391E3D001A9EAF /* SimpleFragment.glsl */; };
+		2218154F15391E3D001A9EAF /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 2218154D15391E3D001A9EAF /* SimpleVertex.glsl */; };
+		2218155315391ECC001A9EAF /* BCGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218155215391ECC001A9EAF /* BCGameView.m */; };
+		2218155E15392057001A9EAF /* CC3Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218155515392057001A9EAF /* CC3Foundation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2218155F15392057001A9EAF /* CC3GLMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218155715392057001A9EAF /* CC3GLMatrix.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2218156015392057001A9EAF /* CC3Kazmath.c in Sources */ = {isa = PBXBuildFile; fileRef = 2218155815392057001A9EAF /* CC3Kazmath.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2218156115392057001A9EAF /* CC3Math.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218155C15392057001A9EAF /* CC3Math.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2218156515392388001A9EAF /* BCBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218156415392388001A9EAF /* BCBox.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +31,33 @@
 		2218152415391CD5001A9EAF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2218152615391CD5001A9EAF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2218152815391CD5001A9EAF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2218152C15391CD5001A9EAF /* BoxCheckers-Info.plist */ = {isa = PBXFileReference; path = "BoxCheckers-Info.plist"; sourceTree = "<group>"; };
+		2218152C15391CD5001A9EAF /* BoxCheckers-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BoxCheckers-Info.plist"; sourceTree = "<group>"; };
 		2218152E15391CD5001A9EAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2218153015391CD5001A9EAF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2218153215391CD5001A9EAF /* BoxCheckers-Prefix.pch */ = {isa = PBXFileReference; path = "BoxCheckers-Prefix.pch"; sourceTree = "<group>"; };
-		2218153315391CD5001A9EAF /* BCAppDelegate.h */ = {isa = PBXFileReference; path = BCAppDelegate.h; sourceTree = "<group>"; };
+		2218153215391CD5001A9EAF /* BoxCheckers-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BoxCheckers-Prefix.pch"; sourceTree = "<group>"; };
+		2218153315391CD5001A9EAF /* BCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCAppDelegate.h; sourceTree = "<group>"; };
 		2218153415391CD5001A9EAF /* BCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCAppDelegate.m; sourceTree = "<group>"; };
+		2218153B15391CE0001A9EAF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2218153D15391CE5001A9EAF /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		2218154615391D40001A9EAF /* BCGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCGameViewController.h; sourceTree = "<group>"; };
+		2218154715391D40001A9EAF /* BCGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCGameViewController.m; sourceTree = "<group>"; };
+		2218154C15391E3D001A9EAF /* SimpleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragment.glsl; sourceTree = "<group>"; };
+		2218154D15391E3D001A9EAF /* SimpleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleVertex.glsl; sourceTree = "<group>"; };
+		2218155115391ECC001A9EAF /* BCGameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCGameView.h; sourceTree = "<group>"; };
+		2218155215391ECC001A9EAF /* BCGameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCGameView.m; sourceTree = "<group>"; };
+		2218155415392057001A9EAF /* CC3Foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC3Foundation.h; sourceTree = "<group>"; };
+		2218155515392057001A9EAF /* CC3Foundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC3Foundation.m; sourceTree = "<group>"; };
+		2218155615392057001A9EAF /* CC3GLMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC3GLMatrix.h; sourceTree = "<group>"; };
+		2218155715392057001A9EAF /* CC3GLMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC3GLMatrix.m; sourceTree = "<group>"; };
+		2218155815392057001A9EAF /* CC3Kazmath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CC3Kazmath.c; sourceTree = "<group>"; };
+		2218155915392057001A9EAF /* CC3Kazmath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC3Kazmath.h; sourceTree = "<group>"; };
+		2218155A15392057001A9EAF /* CC3Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC3Logging.h; sourceTree = "<group>"; };
+		2218155B15392057001A9EAF /* CC3Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC3Math.h; sourceTree = "<group>"; };
+		2218155C15392057001A9EAF /* CC3Math.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC3Math.m; sourceTree = "<group>"; };
+		2218155D15392057001A9EAF /* ccTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccTypes.h; sourceTree = "<group>"; };
+		2218156315392388001A9EAF /* BCBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCBox.h; sourceTree = "<group>"; };
+		2218156415392388001A9EAF /* BCBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCBox.m; sourceTree = "<group>"; };
+		22181566153923C7001A9EAF /* BCTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2218153E15391CE5001A9EAF /* OpenGLES.framework in Frameworks */,
+				2218153C15391CE0001A9EAF /* QuartzCore.framework in Frameworks */,
 				2218152515391CD5001A9EAF /* UIKit.framework in Frameworks */,
 				2218152715391CD5001A9EAF /* Foundation.framework in Frameworks */,
 				2218152915391CD5001A9EAF /* CoreGraphics.framework in Frameworks */,
@@ -62,6 +96,8 @@
 		2218152315391CD5001A9EAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2218153D15391CE5001A9EAF /* OpenGLES.framework */,
+				2218153B15391CE0001A9EAF /* QuartzCore.framework */,
 				2218152415391CD5001A9EAF /* UIKit.framework */,
 				2218152615391CD5001A9EAF /* Foundation.framework */,
 				2218152815391CD5001A9EAF /* CoreGraphics.framework */,
@@ -72,9 +108,13 @@
 		2218152A15391CD5001A9EAF /* BoxCheckers */ = {
 			isa = PBXGroup;
 			children = (
-				2218153315391CD5001A9EAF /* BCAppDelegate.h */,
-				2218153415391CD5001A9EAF /* BCAppDelegate.m */,
+				221815621539235E001A9EAF /* BCBox */,
+				2218154B15391DE7001A9EAF /* Shaders */,
+				2218154515391D1E001A9EAF /* BCGameViewController */,
+				2218154415391D05001A9EAF /* CC3D */,
+				2218154315391CFA001A9EAF /* AppDelegate */,
 				2218152B15391CD5001A9EAF /* Supporting Files */,
+				22181566153923C7001A9EAF /* BCTypes.h */,
 			);
 			path = BoxCheckers;
 			sourceTree = "<group>";
@@ -88,6 +128,69 @@
 				2218153215391CD5001A9EAF /* BoxCheckers-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2218154315391CFA001A9EAF /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				2218153315391CD5001A9EAF /* BCAppDelegate.h */,
+				2218153415391CD5001A9EAF /* BCAppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		2218154415391D05001A9EAF /* CC3D */ = {
+			isa = PBXGroup;
+			children = (
+				2218155415392057001A9EAF /* CC3Foundation.h */,
+				2218155515392057001A9EAF /* CC3Foundation.m */,
+				2218155615392057001A9EAF /* CC3GLMatrix.h */,
+				2218155715392057001A9EAF /* CC3GLMatrix.m */,
+				2218155815392057001A9EAF /* CC3Kazmath.c */,
+				2218155915392057001A9EAF /* CC3Kazmath.h */,
+				2218155A15392057001A9EAF /* CC3Logging.h */,
+				2218155B15392057001A9EAF /* CC3Math.h */,
+				2218155C15392057001A9EAF /* CC3Math.m */,
+				2218155D15392057001A9EAF /* ccTypes.h */,
+			);
+			name = CC3D;
+			sourceTree = "<group>";
+		};
+		2218154515391D1E001A9EAF /* BCGameViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2218155015391EB5001A9EAF /* BCGameView */,
+				2218154615391D40001A9EAF /* BCGameViewController.h */,
+				2218154715391D40001A9EAF /* BCGameViewController.m */,
+			);
+			name = BCGameViewController;
+			sourceTree = "<group>";
+		};
+		2218154B15391DE7001A9EAF /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				2218154D15391E3D001A9EAF /* SimpleVertex.glsl */,
+				2218154C15391E3D001A9EAF /* SimpleFragment.glsl */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
+		2218155015391EB5001A9EAF /* BCGameView */ = {
+			isa = PBXGroup;
+			children = (
+				2218155115391ECC001A9EAF /* BCGameView.h */,
+				2218155215391ECC001A9EAF /* BCGameView.m */,
+			);
+			name = BCGameView;
+			sourceTree = "<group>";
+		};
+		221815621539235E001A9EAF /* BCBox */ = {
+			isa = PBXGroup;
+			children = (
+				2218156315392388001A9EAF /* BCBox.h */,
+				2218156415392388001A9EAF /* BCBox.m */,
+			);
+			name = BCBox;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +246,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2218152F15391CD5001A9EAF /* InfoPlist.strings in Resources */,
+				2218154E15391E3D001A9EAF /* SimpleFragment.glsl in Resources */,
+				2218154F15391E3D001A9EAF /* SimpleVertex.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +260,13 @@
 			files = (
 				2218153115391CD5001A9EAF /* main.m in Sources */,
 				2218153515391CD5001A9EAF /* BCAppDelegate.m in Sources */,
+				2218154915391D40001A9EAF /* BCGameViewController.m in Sources */,
+				2218155315391ECC001A9EAF /* BCGameView.m in Sources */,
+				2218155E15392057001A9EAF /* CC3Foundation.m in Sources */,
+				2218155F15392057001A9EAF /* CC3GLMatrix.m in Sources */,
+				2218156015392057001A9EAF /* CC3Kazmath.c in Sources */,
+				2218156115392057001A9EAF /* CC3Math.m in Sources */,
+				2218156515392388001A9EAF /* BCBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
