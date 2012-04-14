@@ -16,6 +16,7 @@
 
 #import "BCTypes.h"
 #import "BCBox.h"
+#import "BCCheckerBoard.h"
 #import "BCCamera.h"
 
 @interface BCGameViewController ()
@@ -55,25 +56,9 @@ GLuint _depthRenderBuffer;
         
         _drawables = [NSMutableArray new];
         
+        BCCheckerBoard *checkerBoard = [BCCheckerBoard new];
         
-        for (NSInteger y = -5; y < 6; y+=2) {
-         
-            for (NSInteger x = -5; x < 6; x+=2) {
-                
-                BCBox *box = [BCBox new];
-                
-                box.y = y;
-                box.x = x;
-                
-                GLfloat color[] = {(float)(arc4random() % 255) / 255.0f, (float)(arc4random() % 255) / 255.0f, (float)(arc4random() % 255) / 255.0f};
-                [box setColorWithArray:color];
-                
-                [_drawables addObject:box];
-                
-            }
-            
-        }
-        
+        [_drawables addObject:checkerBoard];
         
     }
     return self;
@@ -103,6 +88,89 @@ GLuint _depthRenderBuffer;
     [BCBox loadWithModelViewUniform:_modelViewUniform colorSlot:_colorSlot positionSlot:_positionSlot];
     
     [self setupDisplayLink];
+    
+    UISlider *xslider = [UISlider new];
+    xslider.frame = CGRectMake(0.0f, 0.0f, 320.0f, CGRectGetHeight(xslider.frame));
+    xslider.alpha = 0.5f;
+    xslider.value = 0.5f;
+    [xslider addTarget:self action:@selector(xSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:xslider];
+    
+    UISlider *yslider = [UISlider new];
+    yslider.frame = CGRectMake(0.0f, 20.0f, 320.0f, CGRectGetHeight(yslider.frame));
+    yslider.alpha = 0.5f;
+    yslider.value = 0.5f;
+    [yslider addTarget:self action:@selector(ySliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:yslider];
+    
+    UISlider *zslider = [UISlider new];
+    zslider.frame = CGRectMake(0.0f, 40.0f, 320.0f, CGRectGetHeight(zslider.frame));
+    zslider.alpha = 0.5f;
+    zslider.value = 0.5f;
+    [zslider addTarget:self action:@selector(zSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:zslider];
+    
+    UISlider *xrslider = [UISlider new];
+    xrslider.frame = CGRectMake(0.0f, 60.0f, 320.0f, CGRectGetHeight(xrslider.frame));
+    xrslider.alpha = 0.5f;
+    xrslider.value = 0.5f;
+    [xrslider addTarget:self action:@selector(xrSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:xrslider];
+    
+    UISlider *yrslider = [UISlider new];
+    yrslider.frame = CGRectMake(0.0f, 80.0f, 320.0f, CGRectGetHeight(yrslider.frame));
+    yrslider.alpha = 0.5f;
+    yrslider.value = 0.5f;
+    [yrslider addTarget:self action:@selector(yrSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:yrslider];
+    
+    UISlider *zrslider = [UISlider new];
+    zrslider.frame = CGRectMake(0.0f, 100.0f, 320.0f, CGRectGetHeight(zrslider.frame));
+    zrslider.alpha = 0.5f;
+    zrslider.value = 0.5f;
+    [zrslider addTarget:self action:@selector(zrSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:zrslider];
+}
+
+- (void)xSliderValueChanged:(id)sender {
+    
+    UISlider *slider = (UISlider *)sender;
+    _camera.x = -50.0f + (100.0f * slider.value);
+    
+}
+
+- (void)ySliderValueChanged:(id)sender {
+    
+    UISlider *slider = (UISlider *)sender;
+    _camera.y = -50.0f + (100.0f * slider.value);
+    
+}
+
+- (void)zSliderValueChanged:(id)sender {
+    
+    UISlider *slider = (UISlider *)sender;
+    _camera.z = -50.0f + (100.0f * slider.value);
+
+}
+
+- (void)xrSliderValueChanged:(id)sender {
+    
+    UISlider *slider = (UISlider *)sender;
+    _camera.xRotation = -90.0f + (180.0f * slider.value);
+    
+}
+
+- (void)yrSliderValueChanged:(id)sender {
+    
+    UISlider *slider = (UISlider *)sender;
+    _camera.yRotation = -90.0f + (180.0f * slider.value);
+    
+}
+
+- (void)zrSliderValueChanged:(id)sender {
+    
+    UISlider *slider = (UISlider *)sender;
+    _camera.zRotation = -90.0f + (180.0f * slider.value);
     
 }
 
@@ -227,13 +295,8 @@ GLuint _depthRenderBuffer;
 #pragma mark - OpenGL Rendering
 
 - (void)render:(CADisplayLink *)displayLink {
-
-    _camera.z = (sin(CACurrentMediaTime()) * 4.0f) - 20.f;
-
-    _camera.yRotation  = sin(CACurrentMediaTime()) * 80.0f;
-    _camera.zRotation = sin(CACurrentMediaTime()) * -30.0f;
-    
-    glClearColor(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f);
+        
+    glClearColor(0.0f / 255.0f, 127.5f / 255.0f, 0.0f / 255.0f, 1.0f);
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
@@ -249,11 +312,12 @@ GLuint _depthRenderBuffer;
     glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
     CC3GLMatrix *modelView = [CC3GLMatrix identity];
-    
-    [modelView populateFromTranslation:CC3VectorMake(_camera.x, _camera.y, _camera.z)];
+        
     [modelView rotateByX:_camera.xRotation];
     [modelView rotateByY:_camera.yRotation];
     [modelView rotateByZ:_camera.zRotation];
+    
+    [modelView translateBy:CC3VectorMake(_camera.x, _camera.y, _camera.z)];
 
     CC3GLMatrix *scratchMatrix = [CC3GLMatrix matrix];
     

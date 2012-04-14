@@ -25,6 +25,7 @@
 		2218156115392057001A9EAF /* CC3Math.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218155C15392057001A9EAF /* CC3Math.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2218156515392388001A9EAF /* BCBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218156415392388001A9EAF /* BCBox.m */; };
 		2218156A15394919001A9EAF /* BCCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218156915394919001A9EAF /* BCCamera.m */; };
+		2218156E1539557D001A9EAF /* BCCheckerBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218156D1539557D001A9EAF /* BCCheckerBoard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,8 @@
 		22181566153923C7001A9EAF /* BCTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCTypes.h; sourceTree = "<group>"; };
 		2218156815394919001A9EAF /* BCCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCCamera.h; sourceTree = "<group>"; };
 		2218156915394919001A9EAF /* BCCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCCamera.m; sourceTree = "<group>"; };
+		2218156C1539557D001A9EAF /* BCCheckerBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCCheckerBoard.h; sourceTree = "<group>"; };
+		2218156D1539557D001A9EAF /* BCCheckerBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCCheckerBoard.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,7 @@
 		2218152A15391CD5001A9EAF /* BoxCheckers */ = {
 			isa = PBXGroup;
 			children = (
+				2218156B15395566001A9EAF /* BCCheckerBoard */,
 				2218156715394900001A9EAF /* BCCamera */,
 				221815621539235E001A9EAF /* BCBox */,
 				2218154B15391DE7001A9EAF /* Shaders */,
@@ -206,6 +210,15 @@
 			name = BCCamera;
 			sourceTree = "<group>";
 		};
+		2218156B15395566001A9EAF /* BCCheckerBoard */ = {
+			isa = PBXGroup;
+			children = (
+				2218156C1539557D001A9EAF /* BCCheckerBoard.h */,
+				2218156D1539557D001A9EAF /* BCCheckerBoard.m */,
+			);
+			name = BCCheckerBoard;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -281,6 +294,7 @@
 				2218156115392057001A9EAF /* CC3Math.m in Sources */,
 				2218156515392388001A9EAF /* BCBox.m in Sources */,
 				2218156A15394919001A9EAF /* BCCamera.m in Sources */,
+				2218156E1539557D001A9EAF /* BCCheckerBoard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
