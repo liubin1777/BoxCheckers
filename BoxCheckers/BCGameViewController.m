@@ -233,7 +233,7 @@ GLuint _depthRenderBuffer;
     _camera.yRotation  = sin(CACurrentMediaTime()) * 80.0f;
     _camera.zRotation = sin(CACurrentMediaTime()) * -30.0f;
     
-    glClearColor(40.0f / 255.0f, 100.0f / 255.0f, 0.0f / 255.0f, 1.0f);
+    glClearColor(0.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 1.0f);
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
