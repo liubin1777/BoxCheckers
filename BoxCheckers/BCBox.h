@@ -10,6 +10,8 @@
 
 #import <OpenGLES/ES2/gl.h>
 
+@class CC3GLMatrix;
+
 @interface BCBox : NSObject
 
 @property (nonatomic, assign) GLfloat x;
@@ -18,7 +20,7 @@
 @property (nonatomic, strong) NSMutableData *color;
 
 + (void)loadWithModelViewUniform:(GLuint)modelViewUniform colorSlot:(GLuint)colorSlot positionSlot:(GLuint)positionSlot;
-- (void)draw;
+- (void)drawWithModelViewMatrix:(CC3GLMatrix *)modelView;
 - (void)setColorWithArray:(GLfloat *)array;
 - (void)setColorWithUIColor:(UIColor *)color;
 

@@ -22,10 +22,10 @@ static GLuint VertexBuffer;
 static GLuint IndexBuffer;
 
 const static BCVertex Vertices[] = {
-    {1, -1, 0},
-    {1, 1, 0},
-    {-1, 1, 0}, 
-    {-1, -1, 0}, 
+    {1, -1, 1},
+    {1, 1, 1},
+    {-1, 1, 1}, 
+    {-1, -1, 1}, 
     {1, -1, -1}, 
     {1, 1, -1},
     {-1, 1, -1},
@@ -115,10 +115,9 @@ const static GLubyte Indices[] = {
     
 }
 
-- (void)draw {
+- (void)drawWithModelViewMatrix:(CC3GLMatrix *)modelView {
  
-    CC3GLMatrix *modelView = [CC3GLMatrix matrix];
-    [modelView populateFromTranslation:CC3VectorMake(self.x, self.y, self.z)];
+    [modelView translateBy:CC3VectorMake(self.x, self.y, self.z)];
     
     glUniformMatrix4fv(ModelViewUniform, 1, GL_FALSE, modelView.glMatrix);
     

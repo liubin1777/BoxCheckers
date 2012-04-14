@@ -13,42 +13,10 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 #import "CC3GLMatrix.h"
+
 #import "BCTypes.h"
-
 #import "BCBox.h"
-
-
-const BCVertex Vertices[] = {
-    {1, -1, 0},
-    {1, 1, 0},
-    {-1, 1, 0}, 
-    {-1, -1, 0}, 
-    {1, -1, -1}, 
-    {1, 1, -1},
-    {-1, 1, -1},
-    {-1, -1, -1}};
-
-
-const GLubyte Indices[] = {
-    // Front
-    0, 1, 2,
-    2, 3, 0,
-    // Back
-    4, 6, 5,
-    4, 7, 6,
-    // Left
-    2, 7, 3,
-    7, 6, 2,
-    // Right
-    0, 4, 1,
-    4, 1, 5,
-    // Top
-    6, 2, 1, 
-    1, 6, 5,
-    // Bottom
-    0, 3, 7,
-    0, 7, 4    
-};
+#import "BCCamera.h"
 
 @interface BCGameViewController ()
 
@@ -83,16 +51,29 @@ GLuint _depthRenderBuffer;
         
         self.wantsFullScreenLayout = YES;
         
+        _camera = [BCCamera new];
+        
         _drawables = [NSMutableArray new];
         
-        BCBox *box = [BCBox new];
-        [box setColorWithUIColor:[UIColor redColor]];
-        [_drawables addObject:box];
         
-        BCBox *box2 = [BCBox new];
-        box2.y = 3.0f;
-        [box2 setColorWithUIColor:[UIColor greenColor]];
-        [_drawables addObject:box2];
+        for (NSInteger y = -5; y < 6; y+=2) {
+         
+            for (NSInteger x = -5; x < 6; x+=2) {
+                
+                BCBox *box = [BCBox new];
+                
+                box.y = y;
+                box.x = x;
+                
+                GLfloat color[] = {(float)(arc4random() % 255) / 255.0f, (float)(arc4random() % 255) / 255.0f, (float)(arc4random() % 255) / 255.0f};
+                [box setColorWithArray:color];
+                
+                [_drawables addObject:box];
+                
+            }
+            
+        }
+        
         
     }
     return self;
@@ -246,6 +227,11 @@ GLuint _depthRenderBuffer;
 #pragma mark - OpenGL Rendering
 
 - (void)render:(CADisplayLink *)displayLink {
+
+    _camera.z = (sin(CACurrentMediaTime()) * 4.0f) - 20.f;
+
+    _camera.yRotation  = sin(CACurrentMediaTime()) * 80.0f;
+    _camera.zRotation = sin(CACurrentMediaTime()) * -30.0f;
     
     glClearColor(40.0f / 255.0f, 100.0f / 255.0f, 0.0f / 255.0f, 1.0f);
     
@@ -256,13 +242,28 @@ GLuint _depthRenderBuffer;
     
     float h = 4.0f * self.view.frame.size.height / self.view.frame.size.width;
     
-    [projection populateFromFrustumLeft:-2.0f andRight:2.0f andBottom:-h / 2.0f andTop:h / 2.0f andNear:4.0f andFar:10.0f];
+    [projection populateFromFrustumLeft:-2.0f andRight:2.0f andBottom:-h / 2.0f andTop:h / 2.0f andNear:4.0f andFar:50.0f];
     
     glUniformMatrix4fv(_projectionUniform, 1, GL_FALSE, projection.glMatrix);
     
     glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
+    CC3GLMatrix *modelView = [CC3GLMatrix identity];
+    
+    [modelView populateFromTranslation:CC3VectorMake(_camera.x, _camera.y, _camera.z)];
+    [modelView rotateByX:_camera.xRotation];
+    [modelView rotateByY:_camera.yRotation];
+    [modelView rotateByZ:_camera.zRotation];
 
-    [_drawables makeObjectsPerformSelector:@selector(draw)];
+    CC3GLMatrix *scratchMatrix = [CC3GLMatrix matrix];
+    
+    for (id drawable in _drawables) {
+     
+        [scratchMatrix populateFrom:modelView];
+            
+        [(BCBox *)drawable drawWithModelViewMatrix:scratchMatrix];
+                
+    }
        
     [_gameView.context presentRenderbuffer:GL_RENDERBUFFER];
     

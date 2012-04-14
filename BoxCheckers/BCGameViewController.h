@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class BCCamera;
+
 @interface BCGameViewController : UIViewController {
  
     NSMutableArray *_drawables;
+    BCCamera *_camera;
     
 }
 
