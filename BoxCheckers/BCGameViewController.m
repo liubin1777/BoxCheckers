@@ -51,7 +51,12 @@
         self.wantsFullScreenLayout = YES;
         
         _camera = [BCCamera new];
-        _camera.z = -40.0f;
+        _camera.x = 0.0f;
+        _camera.y = 5.0f;
+        _camera.z = 1.5f;
+        _camera.xRotation = -60.0f;
+        _camera.yRotation = 0.0f;
+        _camera.zRotation = 0.0f;
         
         _drawables = [NSMutableArray new];
         
@@ -59,11 +64,53 @@
         
         [_drawables addObject:checkerBoard];
         
-        BCCylinder *cylinder = [BCCylinder new];
-        cylinder.z = 20.0f;
-        [_drawables addObject:cylinder];
+    
+        for (NSUInteger x = 0; x < 9; x += 2) {
+            
+            BCCylinder *cylinder = [BCCylinder new];
+            cylinder.z = -6.0f;
+            cylinder.x = x * 2.0f;
+            cylinder.y = 0.0f;
+            [cylinder setColorWithUIColor:[UIColor redColor]];
+            [_drawables addObject:cylinder];
+            
+        }
+        
+        for (NSUInteger x = 1; x < 9; x += 2) {
+            
+            BCCylinder *cylinder = [BCCylinder new];
+            cylinder.z = -6.0f;
+            cylinder.x = x * 2.0f;
+            cylinder.y = 2.0f;
+            [cylinder setColorWithUIColor:[UIColor redColor]];
+            [_drawables addObject:cylinder];
+            
+        }
+        
+        for (NSUInteger x = 1; x < 9; x += 2) {
+            
+            BCCylinder *cylinder = [BCCylinder new];
+            cylinder.z = -6.0f;
+            cylinder.x = x * 2.0f;
+            cylinder.y = 16.0f;
+            [cylinder setColorWithUIColor:[UIColor blackColor]];
+            [_drawables addObject:cylinder];
+            
+        }
+        
+        for (NSUInteger x = 0; x < 9; x += 2) {
+            
+            BCCylinder *cylinder = [BCCylinder new];
+            cylinder.z = -6.0f;
+            cylinder.x = x * 2.0f;
+            cylinder.y = 14.0f;
+            [cylinder setColorWithUIColor:[UIColor blackColor]];
+            [_drawables addObject:cylinder];
+            
+        }
         
     }
+        
     return self;
 }
 
@@ -98,7 +145,9 @@
 #ifdef kAddCameraDebugValues
     [self addCameraDebugValues];
 #endif
-        
+    
+    [self zoomTowardsCheckerboard];
+    
 }
 
 

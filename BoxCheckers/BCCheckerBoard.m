@@ -26,6 +26,10 @@
     
     if (self) {
         
+        self.x = 0.0f;
+        self.y = 0.0f;
+        self.z = 0.0f;
+        
         _tiles = [NSMutableArray new];
         
         for (NSInteger y = 0; y < 9; y++) {
