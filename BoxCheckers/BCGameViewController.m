@@ -71,7 +71,7 @@
             cylinder.z = -6.0f;
             cylinder.x = x * 2.0f;
             cylinder.y = 0.0f;
-            [cylinder setColorWithUIColor:[UIColor redColor]];
+            [cylinder setColorWithUIColor:[UIColor blueColor]];
             [_drawables addObject:cylinder];
             
         }
@@ -82,7 +82,7 @@
             cylinder.z = -6.0f;
             cylinder.x = x * 2.0f;
             cylinder.y = 2.0f;
-            [cylinder setColorWithUIColor:[UIColor redColor]];
+            [cylinder setColorWithUIColor:[UIColor blueColor]];
             [_drawables addObject:cylinder];
             
         }
@@ -93,7 +93,7 @@
             cylinder.z = -6.0f;
             cylinder.x = x * 2.0f;
             cylinder.y = 16.0f;
-            [cylinder setColorWithUIColor:[UIColor blackColor]];
+            [cylinder setColorWithUIColor:[UIColor yellowColor]];
             [_drawables addObject:cylinder];
             
         }
@@ -104,7 +104,7 @@
             cylinder.z = -6.0f;
             cylinder.x = x * 2.0f;
             cylinder.y = 14.0f;
-            [cylinder setColorWithUIColor:[UIColor blackColor]];
+            [cylinder setColorWithUIColor:[UIColor yellowColor]];
             [_drawables addObject:cylinder];
             
         }
@@ -282,7 +282,7 @@
     
     float h = 4.0f * self.view.frame.size.height / self.view.frame.size.width;
     
-    [projection populateFromFrustumLeft:-2.0f andRight:2.0f andBottom:-h / 2.0f andTop:h / 2.0f andNear:4.0f andFar:50.0f];
+    [projection populateFromFrustumLeft:-2.0f andRight:2.0f andBottom:-h / 2.0f andTop:h / 2.0f andNear:4.0f andFar:100.0f];
     
     glUniformMatrix4fv(_projectionUniform, 1, GL_FALSE, projection.glMatrix);
     

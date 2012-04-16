@@ -17,6 +17,6 @@
 //#define kAddCameraDebugValues
 
 //Cylinder Debuf
-#define kDrawCylinderLines
+//#define kDrawCylinderLines
 
 #endif
