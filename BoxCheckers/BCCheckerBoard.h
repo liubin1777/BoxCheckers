@@ -6,13 +6,11 @@
 //  Copyright (c) 2012 WillowTree Apps. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-#import <OpenGLES/ES2/gl.h>
+#import "BCGLObject.h"
 
 @class CC3GLMatrix;
 
-@interface BCCheckerBoard : NSObject {
+@interface BCCheckerBoard : NSObject <BCGLObject> {
  
     NSMutableArray *_tiles;
     

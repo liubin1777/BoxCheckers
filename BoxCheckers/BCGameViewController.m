@@ -15,8 +15,10 @@
 #import <OpenGLES/ES2/glext.h>
 #import "CC3GLMatrix.h"
 
+#import "BCGLObject.h"
 #import "BCTypes.h"
 #import "BCBox.h"
+#import "BCCylinder.h"
 #import "BCCheckerBoard.h"
 #import "BCCamera.h"
 
@@ -49,12 +51,16 @@
         self.wantsFullScreenLayout = YES;
         
         _camera = [BCCamera new];
+        _camera.z = -40.0f;
         
         _drawables = [NSMutableArray new];
         
         BCCheckerBoard *checkerBoard = [BCCheckerBoard new];
         
         [_drawables addObject:checkerBoard];
+        
+//        BCCylinder *cylinder = [BCCylinder new];
+//        [_drawables addObject:cylinder];
         
     }
     return self;
@@ -80,6 +86,7 @@
     [self compileShaders];
 
     [BCBox loadWithModelViewUniform:_modelViewUniform colorSlot:_colorSlot positionSlot:_positionSlot];
+//    [BCCylinder loadWithModelViewUniform:_modelViewUniform colorSlot:_colorSlot positionSlot:_positionSlot];
     
     [self setupDisplayLink];
  
@@ -90,9 +97,7 @@
 #ifdef kAddCameraDebugValues
     [self addCameraDebugValues];
 #endif
-    
-    [self zoomTowardsCheckerboard];
-    
+        
 }
 
 
@@ -245,11 +250,11 @@
 
     CC3GLMatrix *scratchMatrix = [CC3GLMatrix matrix];
         
-    for (id drawable in _drawables) {
+    for (id <BCGLObject> drawable in _drawables) {
      
         [scratchMatrix populateFrom:modelView];
             
-        [(BCBox *)drawable drawWithModelViewMatrix:scratchMatrix];
+        [drawable drawWithModelViewMatrix:scratchMatrix];
                 
     }
        
