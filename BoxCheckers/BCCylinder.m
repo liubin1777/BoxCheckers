@@ -127,7 +127,7 @@ static GLubyte Indices[] = {
     GLfloat red = 0.0f;
     GLfloat green = 0.0f;
     GLfloat blue = 0.0f;
-    GLfloat alpha = 0.0f;
+    GLfloat alpha = 1.0f;
     
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
     
@@ -158,6 +158,8 @@ static GLubyte Indices[] = {
     glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
     
+//    glEnable(GL_STENCIL_TEST);
+    
     [modelView translateBy:CC3VectorMake(self.x, self.y, self.z)];
     
     glUniformMatrix4fv(ModelViewUniform, 1, GL_FALSE, modelView.glMatrix);
@@ -167,6 +169,16 @@ static GLubyte Indices[] = {
     glVertexAttribPointer(PositionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(BCVertex), 0);
     
     glDrawElements(GL_TRIANGLES, sizeof(Indices) / sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
+        
+#ifdef kDrawCylinderLines
+    
+    GLfloat lineColor[] = {0.5f, 0.5f, 0.5f, 1.0f};
+    
+    glUniform4fv(ColorSlot, 1, lineColor);
+    
+    glDrawElements(GL_LINES, sizeof(Indices) / sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
+    
+#endif
     
 }
 

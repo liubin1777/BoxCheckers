@@ -277,7 +277,7 @@
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-    
+            
     CC3GLMatrix *projection = [CC3GLMatrix matrix];
     
     float h = 4.0f * self.view.frame.size.height / self.view.frame.size.width;
@@ -299,7 +299,7 @@
     [modelView translateBy:CC3VectorMake(_camera.x, _camera.y, _camera.z)];
 
     CC3GLMatrix *scratchMatrix = [CC3GLMatrix matrix];
-        
+    
     for (id <BCGLObject> drawable in _drawables) {
      
         [scratchMatrix populateFrom:modelView];

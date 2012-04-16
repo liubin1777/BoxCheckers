@@ -89,7 +89,7 @@ const static GLubyte Indices[] = {
     GLfloat red = 0.0f;
     GLfloat green = 0.0f;
     GLfloat blue = 0.0f;
-    GLfloat alpha = 0.0f;
+    GLfloat alpha = 1.0f;
     
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
     
