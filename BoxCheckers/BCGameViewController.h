@@ -24,7 +24,10 @@
     GLuint _projectionUniform;
     GLuint _modelViewUniform;
     GLuint _depthRenderBuffer;
+    GLuint _viewFrameBuffer;
     
+    GLint backingWidth, backingHeight; 
+    GLuint msaaFramebuffer, msaaRenderBuffer, msaaDepthBuffer;
 }
 
 @end

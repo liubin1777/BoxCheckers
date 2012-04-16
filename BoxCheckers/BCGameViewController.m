@@ -31,6 +31,7 @@
 
 - (void)setupLayer;
 - (void)setupContext;
+- (void)setupMSAA;
 - (GLuint)compileShader:(NSString *)shaderName withType:(GLenum)shaderType;
 - (void)compileShaders;
 - (void)render:(CADisplayLink *)displayLink;
@@ -131,6 +132,7 @@
     [self setupDepthBuffer];
     [self setupRenderBuffer];
     [self setupFrameBuffer];
+    [self setupMSAA];
     [self compileShaders];
 
     [BCBox loadWithModelViewUniform:_modelViewUniform colorSlot:_colorSlot positionSlot:_positionSlot];
@@ -223,6 +225,24 @@
 
 #pragma mark - OpenGL Setup
 
+- (void)setupMSAA {
+
+    glGenFramebuffers(1, &msaaFramebuffer);
+    glGenFramebuffers(1, &msaaRenderBuffer);
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, msaaFramebuffer);
+    glBindFramebuffer(GL_RENDERBUFFER, msaaRenderBuffer);
+    
+    glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 4, GL_RGB5_A1, backingWidth, backingHeight);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, msaaRenderBuffer);
+    glGenRenderbuffers(1, &msaaDepthBuffer);
+    
+    glBindRenderbuffer(GL_RENDERBUFFER, msaaDepthBuffer);
+    glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 4, GL_DEPTH_COMPONENT16, backingWidth, backingHeight);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, msaaDepthBuffer);
+
+}
+
 - (void)setupDisplayLink {
     
     CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
@@ -258,13 +278,15 @@
     glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
     [_gameView.context renderbufferStorage:GL_RENDERBUFFER fromDrawable:_gameView.eaglLayer];
     
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &backingWidth);
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &backingHeight);
+    
 }
 
 - (void)setupFrameBuffer {
     
-    GLuint framebuffer;
-    glGenFramebuffers(1, &framebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    glGenFramebuffers(1, &_viewFrameBuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, _viewFrameBuffer);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _colorRenderBuffer);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthRenderBuffer);
 }
@@ -307,7 +329,16 @@
         [drawable drawWithModelViewMatrix:scratchMatrix];
                 
     }
-       
+    
+    GLenum attachments[] = {GL_DEPTH_ATTACHMENT};
+    glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE, 1, attachments);
+    glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, msaaFramebuffer);   
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, _viewFrameBuffer);
+    
+    glResolveMultisampleFramebufferAPPLE();
+    
+    glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
+    
     [_gameView.context presentRenderbuffer:GL_RENDERBUFFER];
     
 }
