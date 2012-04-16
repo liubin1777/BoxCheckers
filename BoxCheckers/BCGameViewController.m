@@ -59,8 +59,9 @@
         
         [_drawables addObject:checkerBoard];
         
-//        BCCylinder *cylinder = [BCCylinder new];
-//        [_drawables addObject:cylinder];
+        BCCylinder *cylinder = [BCCylinder new];
+        cylinder.z = 20.0f;
+        [_drawables addObject:cylinder];
         
     }
     return self;
@@ -86,7 +87,7 @@
     [self compileShaders];
 
     [BCBox loadWithModelViewUniform:_modelViewUniform colorSlot:_colorSlot positionSlot:_positionSlot];
-//    [BCCylinder loadWithModelViewUniform:_modelViewUniform colorSlot:_colorSlot positionSlot:_positionSlot];
+    [BCCylinder loadWithModelViewUniform:_modelViewUniform colorSlot:_colorSlot positionSlot:_positionSlot];
     
     [self setupDisplayLink];
  

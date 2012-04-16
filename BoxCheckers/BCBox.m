@@ -117,6 +117,9 @@ const static GLubyte Indices[] = {
 
 - (void)drawWithModelViewMatrix:(CC3GLMatrix *)modelView {
  
+    glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
+    
     [modelView translateBy:CC3VectorMake(self.x, self.y, self.z)];
     
     glUniformMatrix4fv(ModelViewUniform, 1, GL_FALSE, modelView.glMatrix);
