@@ -1,16 +1,14 @@
 //
-//  BCBox.h
+//  BCCylinder.h
 //  BoxCheckers
 //
-//  Created by Andrew Carter on 4/13/12.
+//  Created by Andrew Carter on 4/15/12.
 //  Copyright (c) 2012 WillowTree Apps. All rights reserved.
 //
 
 #import "BCGLObject.h"
 
-@class CC3GLMatrix;
-
-@interface BCBox : NSObject <BCGLObject>
+@interface BCCylinder : NSObject <BCGLObject>
 
 @property (nonatomic, assign) GLfloat x;
 @property (nonatomic, assign) GLfloat y;

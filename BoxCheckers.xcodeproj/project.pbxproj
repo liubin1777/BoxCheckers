@@ -27,6 +27,7 @@
 		2218156A15394919001A9EAF /* BCCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218156915394919001A9EAF /* BCCamera.m */; };
 		2218156E1539557D001A9EAF /* BCCheckerBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2218156D1539557D001A9EAF /* BCCheckerBoard.m */; };
 		223E166F153A0380004A564C /* BCGameViewController+CameraDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 223E166E153A0380004A564C /* BCGameViewController+CameraDebug.m */; };
+		D0F13734153BAF950048796A /* BCCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F13733153BAF950048796A /* BCCylinder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,9 @@
 		2218156D1539557D001A9EAF /* BCCheckerBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCCheckerBoard.m; sourceTree = "<group>"; };
 		223E166D153A0380004A564C /* BCGameViewController+CameraDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BCGameViewController+CameraDebug.h"; sourceTree = "<group>"; };
 		223E166E153A0380004A564C /* BCGameViewController+CameraDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BCGameViewController+CameraDebug.m"; sourceTree = "<group>"; };
+		D0F1372F153BAF310048796A /* BCGLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCGLObject.h; sourceTree = "<group>"; };
+		D0F13732153BAF950048796A /* BCCylinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCCylinder.h; sourceTree = "<group>"; };
+		D0F13733153BAF950048796A /* BCCylinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCCylinder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 		2218152A15391CD5001A9EAF /* BoxCheckers */ = {
 			isa = PBXGroup;
 			children = (
+				D0F13731153BAF810048796A /* BCCylinder */,
 				2218156B15395566001A9EAF /* BCCheckerBoard */,
 				2218156715394900001A9EAF /* BCCamera */,
 				221815621539235E001A9EAF /* BCBox */,
@@ -126,6 +131,7 @@
 				2218154315391CFA001A9EAF /* AppDelegate */,
 				2218152B15391CD5001A9EAF /* Supporting Files */,
 				22181566153923C7001A9EAF /* BCTypes.h */,
+				D0F1372F153BAF310048796A /* BCGLObject.h */,
 			);
 			path = BoxCheckers;
 			sourceTree = "<group>";
@@ -232,6 +238,15 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		D0F13731153BAF810048796A /* BCCylinder */ = {
+			isa = PBXGroup;
+			children = (
+				D0F13732153BAF950048796A /* BCCylinder.h */,
+				D0F13733153BAF950048796A /* BCCylinder.m */,
+			);
+			name = BCCylinder;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -309,6 +324,7 @@
 				2218156A15394919001A9EAF /* BCCamera.m in Sources */,
 				2218156E1539557D001A9EAF /* BCCheckerBoard.m in Sources */,
 				223E166F153A0380004A564C /* BCGameViewController+CameraDebug.m in Sources */,
+				D0F13734153BAF950048796A /* BCCylinder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

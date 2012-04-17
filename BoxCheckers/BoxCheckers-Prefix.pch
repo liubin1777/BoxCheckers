@@ -12,7 +12,11 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
+
 #define kAddCameraDebugSliders
 //#define kAddCameraDebugValues
+
+//Cylinder Debuf
+//#define kDrawCylinderLines
 
 #endif

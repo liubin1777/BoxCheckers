@@ -1,12 +1,12 @@
 //
-//  BCBox.m
+//  BCCylinder.m
 //  BoxCheckers
 //
-//  Created by Andrew Carter on 4/13/12.
+//  Created by Andrew Carter on 4/15/12.
 //  Copyright (c) 2012 WillowTree Apps. All rights reserved.
 //
 
-#import "BCBox.h"
+#import "BCCylinder.h"
 
 #import "BCTypes.h"
 
@@ -21,56 +21,77 @@ static GLuint ModelViewUniform;
 static GLuint VertexBuffer;
 static GLuint IndexBuffer;
 
-const static Vertex Vertices[] = {
-    {-1.00000000f, -1.00000000f, 1.00000000f},
-    {-1.00000000f, 1.00000000f, 1.00000000f},
-    {1.00000000f, 1.00000000f, 1.00000000f},
-    {1.00000000f, -1.00000000f, 1.00000000f},
-    {-1.00000000f, -1.00000000f, -1.00000000f},
-    {-1.00000000f, 1.00000000f, -1.00000000f},
-    {1.00000000f, 1.00000000f, -1.00000000f},
-    {1.00000000f, -1.00000000f, -1.00000000f},
-};
-const static Vertex Normals[] = {
-    {-0.57735027f, -0.57735027f, 0.57735027f},
-    {-0.40824829f, 0.81649658f, 0.40824829f},
-    {0.66666667f, 0.33333333f, 0.66666667f},
-    {0.57735027f, -0.57735027f, 0.57735027f},
-    {-0.40824829f, -0.40824829f, -0.81649658f},
-    {-0.81649658f, 0.40824829f, -0.40824829f},
-    {0.33333333f, 0.66666667f, -0.66666667f},
-    {0.66666667f, -0.66666667f, -0.33333333f},
-};
-const static GLubyte VertexIndicies[] = {
-    0, 2, 1, 
-    0, 5, 4, 
-    0, 7, 3, 
-    1, 5, 0, 
-    1, 6, 5, 
-    2, 6, 1, 
-    2, 7, 6, 
-    3, 2, 0, 
-    3, 7, 2, 
-    4, 6, 7, 
-    4, 7, 0, 
-    5, 6, 4, 
-};
-const static GLubyte NormalIndicies[] = {
-    0, 2, 1, 
-    0, 5, 4, 
-    0, 7, 3, 
-    1, 5, 0, 
-    1, 6, 5, 
-    2, 6, 1, 
-    2, 7, 6, 
-    3, 2, 0, 
-    3, 7, 2, 
-    4, 6, 7, 
-    4, 7, 0, 
-    5, 6, 4, 
+static Vertex Vertices[] = {
+
+    {0.0f, 0.0f, 1.0f},
+    {0.25f, -0.75f, 1.0f},
+    {0.75f, -0.25f, 1.0f},
+    {0.75f, 0.25f, 1.0f},
+    {0.25f, 0.75f, 1.0f},
+    {-0.25f, 0.75f, 1.0f},
+    {-0.75f, 0.25f, 1.0f},
+    {-0.75f, -0.25f, 1.0f},
+    {-0.25f, -0.75f, 1.0f},
+    
+    {0.0f, 0.0f, 0.0f},
+    {0.25f, -0.75f, 0.0f},
+    {0.75f, -0.25f, 0.0f},
+    {0.75f, 0.25f, 0.0f},
+    {0.25f, 0.75f, 0.0f},
+    {-0.25f, 0.75f, 0.0f},
+    {-0.75f, 0.25f, 0.0f},
+    {-0.75f, -0.25f, 0.0f},
+    {-0.25f, -0.75f, 0.0f},
+
 };
 
-@implementation BCBox
+static GLubyte Indices[] = {
+    
+    0,1,2,
+    0,2,3,
+    0,3,4,
+    0,4,5,
+    0,5,6,
+    0,6,7,
+    0,7,8,
+    0,8,1,
+    
+    9,10,11,
+    9,11,12,
+    9,12,13,
+    9,13,14,
+    9,14,15,
+    9,15,16,
+    9,16,17,
+    9,17,10,
+    
+    1,10,11,
+    1,2,11,
+    
+    2,11,12,
+    2,3,12,
+    
+    3,12,13,
+    3,4,13,
+    
+    4,13,14,
+    4,5,14,
+    
+    5,14,15,
+    5,6,15,
+    
+    6,15,16,
+    6,7,16,
+    
+    7,16,17,
+    7,8,17,
+    
+    8,17,10,
+    8,1,10
+    
+};
+
+@implementation BCCylinder
 
 @synthesize x = _x;
 @synthesize y = _y;
@@ -78,7 +99,7 @@ const static GLubyte NormalIndicies[] = {
 @synthesize color = _color;
 
 - (id)init {
- 
+    
     self = [super init];
     
     if (self) {
@@ -102,7 +123,7 @@ const static GLubyte NormalIndicies[] = {
 }
 
 - (void)setColorWithUIColor:(UIColor *)color {
- 
+    
     GLfloat red = 0.0f;
     GLfloat green = 0.0f;
     GLfloat blue = 0.0f;
@@ -117,14 +138,14 @@ const static GLubyte NormalIndicies[] = {
 }
 
 + (void)loadWithModelViewUniform:(GLuint)modelViewUniform colorSlot:(GLuint)colorSlot positionSlot:(GLuint)positionSlot {
-    
+
     glGenBuffers(1, &VertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
     
     glGenBuffers(1, &IndexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(VertexIndicies), VertexIndicies, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
     
     ModelViewUniform = modelViewUniform;
     ColorSlot = colorSlot;
@@ -133,9 +154,11 @@ const static GLubyte NormalIndicies[] = {
 }
 
 - (void)drawWithModelViewMatrix:(CC3GLMatrix *)modelView {
- 
+    
     glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
+    
+//    glEnable(GL_STENCIL_TEST);
     
     [modelView translateBy:CC3VectorMake(self.x, self.y, self.z)];
     
@@ -145,8 +168,18 @@ const static GLubyte NormalIndicies[] = {
     
     glVertexAttribPointer(PositionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
     
-    glDrawElements(GL_TRIANGLES, sizeof(VertexIndicies) / sizeof(VertexIndicies[0]), GL_UNSIGNED_BYTE, 0);
-   
+    glDrawElements(GL_TRIANGLES, sizeof(Indices) / sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
+        
+#ifdef kDrawCylinderLines
+    
+    GLfloat lineColor[] = {0.5f, 0.5f, 0.5f, 1.0f};
+    
+    glUniform4fv(ColorSlot, 1, lineColor);
+    
+    glDrawElements(GL_LINES, sizeof(Indices) / sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
+    
+#endif
+    
 }
 
 @end

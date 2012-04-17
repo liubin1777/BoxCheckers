@@ -13,6 +13,6 @@ typedef struct {
     
     float position[3];
     
-} BCVertex;
+} Vertex;
 
 #endif

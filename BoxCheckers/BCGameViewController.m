@@ -15,8 +15,10 @@
 #import <OpenGLES/ES2/glext.h>
 #import "CC3GLMatrix.h"
 
+#import "BCGLObject.h"
 #import "BCTypes.h"
 #import "BCBox.h"
+#import "BCCylinder.h"
 #import "BCCheckerBoard.h"
 #import "BCCamera.h"
 
@@ -29,6 +31,7 @@
 
 - (void)setupLayer;
 - (void)setupContext;
+- (void)setupMSAA;
 - (GLuint)compileShader:(NSString *)shaderName withType:(GLenum)shaderType;
 - (void)compileShaders;
 - (void)render:(CADisplayLink *)displayLink;
@@ -49,6 +52,12 @@
         self.wantsFullScreenLayout = YES;
         
         _camera = [BCCamera new];
+        _camera.x = 0.0f;
+        _camera.y = 5.0f;
+        _camera.z = 1.5f;
+        _camera.xRotation = -60.0f;
+        _camera.yRotation = 0.0f;
+        _camera.zRotation = 0.0f;
         
         _drawables = [NSMutableArray new];
         
@@ -56,7 +65,53 @@
         
         [_drawables addObject:checkerBoard];
         
+    
+        for (NSUInteger x = 0; x < 9; x += 2) {
+            
+            BCCylinder *cylinder = [BCCylinder new];
+            cylinder.z = -6.0f;
+            cylinder.x = x * 2.0f;
+            cylinder.y = 0.0f;
+            [cylinder setColorWithUIColor:[UIColor blueColor]];
+            [_drawables addObject:cylinder];
+            
+        }
+        
+        for (NSUInteger x = 1; x < 9; x += 2) {
+            
+            BCCylinder *cylinder = [BCCylinder new];
+            cylinder.z = -6.0f;
+            cylinder.x = x * 2.0f;
+            cylinder.y = 2.0f;
+            [cylinder setColorWithUIColor:[UIColor blueColor]];
+            [_drawables addObject:cylinder];
+            
+        }
+        
+        for (NSUInteger x = 1; x < 9; x += 2) {
+            
+            BCCylinder *cylinder = [BCCylinder new];
+            cylinder.z = -6.0f;
+            cylinder.x = x * 2.0f;
+            cylinder.y = 16.0f;
+            [cylinder setColorWithUIColor:[UIColor yellowColor]];
+            [_drawables addObject:cylinder];
+            
+        }
+        
+        for (NSUInteger x = 0; x < 9; x += 2) {
+            
+            BCCylinder *cylinder = [BCCylinder new];
+            cylinder.z = -6.0f;
+            cylinder.x = x * 2.0f;
+            cylinder.y = 14.0f;
+            [cylinder setColorWithUIColor:[UIColor yellowColor]];
+            [_drawables addObject:cylinder];
+            
+        }
+        
     }
+        
     return self;
 }
 
@@ -77,9 +132,11 @@
     [self setupDepthBuffer];
     [self setupRenderBuffer];
     [self setupFrameBuffer];
+    [self setupMSAA];
     [self compileShaders];
 
     [BCBox loadWithModelViewUniform:_modelViewUniform colorSlot:_colorSlot positionSlot:_positionSlot];
+    [BCCylinder loadWithModelViewUniform:_modelViewUniform colorSlot:_colorSlot positionSlot:_positionSlot];
     
     [self setupDisplayLink];
  
@@ -168,6 +225,24 @@
 
 #pragma mark - OpenGL Setup
 
+- (void)setupMSAA {
+
+    glGenFramebuffers(1, &msaaFramebuffer);
+    glGenFramebuffers(1, &msaaRenderBuffer);
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, msaaFramebuffer);
+    glBindFramebuffer(GL_RENDERBUFFER, msaaRenderBuffer);
+    
+    glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 4, GL_RGB5_A1, backingWidth, backingHeight);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, msaaRenderBuffer);
+    glGenRenderbuffers(1, &msaaDepthBuffer);
+    
+    glBindRenderbuffer(GL_RENDERBUFFER, msaaDepthBuffer);
+    glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 4, GL_DEPTH_COMPONENT16, backingWidth, backingHeight);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, msaaDepthBuffer);
+
+}
+
 - (void)setupDisplayLink {
     
     CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
@@ -203,13 +278,15 @@
     glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
     [_gameView.context renderbufferStorage:GL_RENDERBUFFER fromDrawable:_gameView.eaglLayer];
     
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &backingWidth);
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &backingHeight);
+    
 }
 
 - (void)setupFrameBuffer {
     
-    GLuint framebuffer;
-    glGenFramebuffers(1, &framebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    glGenFramebuffers(1, &_viewFrameBuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, _viewFrameBuffer);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _colorRenderBuffer);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthRenderBuffer);
 }
@@ -222,12 +299,12 @@
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-    
+            
     CC3GLMatrix *projection = [CC3GLMatrix matrix];
     
     float h = 4.0f * self.view.frame.size.height / self.view.frame.size.width;
     
-    [projection populateFromFrustumLeft:-2.0f andRight:2.0f andBottom:-h / 2.0f andTop:h / 2.0f andNear:4.0f andFar:50.0f];
+    [projection populateFromFrustumLeft:-2.0f andRight:2.0f andBottom:-h / 2.0f andTop:h / 2.0f andNear:4.0f andFar:100.0f];
     
     glUniformMatrix4fv(_projectionUniform, 1, GL_FALSE, projection.glMatrix);
     
@@ -244,15 +321,24 @@
     [modelView translateBy:CC3VectorMake(_camera.x, _camera.y, _camera.z)];
 
     CC3GLMatrix *scratchMatrix = [CC3GLMatrix matrix];
-        
-    for (id drawable in _drawables) {
+    
+    for (id <BCGLObject> drawable in _drawables) {
      
         [scratchMatrix populateFrom:modelView];
             
-        [(BCBox *)drawable drawWithModelViewMatrix:scratchMatrix];
+        [drawable drawWithModelViewMatrix:scratchMatrix];
                 
     }
-       
+    
+    GLenum attachments[] = {GL_DEPTH_ATTACHMENT};
+    glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE, 1, attachments);
+    glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, msaaFramebuffer);   
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, _viewFrameBuffer);
+    
+    glResolveMultisampleFramebufferAPPLE();
+    
+    glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
+    
     [_gameView.context presentRenderbuffer:GL_RENDERBUFFER];
     
 }
