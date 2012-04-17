@@ -22,35 +22,52 @@ static GLuint VertexBuffer;
 static GLuint IndexBuffer;
 
 const static BCVertex Vertices[] = {
-    {1, -1, 1},
-    {1, 1, 1},
-    {-1, 1, 1}, 
-    {-1, -1, 1}, 
-    {1, -1, -1}, 
-    {1, 1, -1},
-    {-1, 1, -1},
-    {-1, -1, -1}};
-
-
-const static GLubyte Indices[] = {
-    // Front
-    0, 1, 2,
-    2, 3, 0,
-    // Back
-    4, 6, 5,
-    4, 7, 6,
-    // Left
-    2, 7, 3,
-    7, 6, 2,
-    // Right
-    0, 4, 1,
-    4, 1, 5,
-    // Top
-    6, 2, 1, 
-    1, 6, 5,
-    // Bottom
-    0, 3, 7,
-    0, 7, 4    
+    {-1.00000000f, -1.00000000f, 1.00000000f},
+    {-1.00000000f, 1.00000000f, 1.00000000f},
+    {1.00000000f, 1.00000000f, 1.00000000f},
+    {1.00000000f, -1.00000000f, 1.00000000f},
+    {-1.00000000f, -1.00000000f, -1.00000000f},
+    {-1.00000000f, 1.00000000f, -1.00000000f},
+    {1.00000000f, 1.00000000f, -1.00000000f},
+    {1.00000000f, -1.00000000f, -1.00000000f},
+};
+const static BCVertex Normals[] = {
+    {-0.57735027f, -0.57735027f, 0.57735027f},
+    {-0.40824829f, 0.81649658f, 0.40824829f},
+    {0.66666667f, 0.33333333f, 0.66666667f},
+    {0.57735027f, -0.57735027f, 0.57735027f},
+    {-0.40824829f, -0.40824829f, -0.81649658f},
+    {-0.81649658f, 0.40824829f, -0.40824829f},
+    {0.33333333f, 0.66666667f, -0.66666667f},
+    {0.66666667f, -0.66666667f, -0.33333333f},
+};
+const static GLubyte VertexIndicies[] = {
+    0, 2, 1, 
+    0, 5, 4, 
+    0, 7, 3, 
+    1, 5, 0, 
+    1, 6, 5, 
+    2, 6, 1, 
+    2, 7, 6, 
+    3, 2, 0, 
+    3, 7, 2, 
+    4, 6, 7, 
+    4, 7, 0, 
+    5, 6, 4, 
+};
+const static GLubyte NormalIndicies[] = {
+    0, 2, 1, 
+    0, 5, 4, 
+    0, 7, 3, 
+    1, 5, 0, 
+    1, 6, 5, 
+    2, 6, 1, 
+    2, 7, 6, 
+    3, 2, 0, 
+    3, 7, 2, 
+    4, 6, 7, 
+    4, 7, 0, 
+    5, 6, 4, 
 };
 
 @implementation BCBox
@@ -107,7 +124,7 @@ const static GLubyte Indices[] = {
     
     glGenBuffers(1, &IndexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(VertexIndicies), VertexIndicies, GL_STATIC_DRAW);
     
     ModelViewUniform = modelViewUniform;
     ColorSlot = colorSlot;
@@ -125,7 +142,7 @@ const static GLubyte Indices[] = {
     
     glVertexAttribPointer(PositionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(BCVertex), 0);
     
-    glDrawElements(GL_TRIANGLES, sizeof(Indices) / sizeof(Indices[0]), GL_UNSIGNED_BYTE, 0);
+    glDrawElements(GL_TRIANGLES, sizeof(VertexIndicies) / sizeof(VertexIndicies[0]), GL_UNSIGNED_BYTE, 0);
    
 }
 
